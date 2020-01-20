@@ -1,7 +1,7 @@
 from django.db import models
-from account.models import Account
 from menu.models import Dish
 from datetime import datetime
+
 
 class Order(models.Model):
     CASHTOCOURIER = 'cash'
@@ -14,10 +14,13 @@ class Order(models.Model):
         (ONLINE, 'Оплата онлайн'),
     ]
 
-    fullName = models.ForeignKey(Account, on_delete=models.PROTECT, verbose_name='Замовник')
-    paymentMethod = models.CharField(max_length=50, choices=PAYMENT_CHOICES, default=ONLINE, verbose_name='Спосіб оплати')
-    orderList = models.ManyToManyField(Dish, verbose_name='Зміст замовлення')
-    orderTime = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата замовлення', editable=False)
+
+    name = models.CharField(max_length=30, verbose_name="Ім'я", blank=True, null=True)
+    surname = models.CharField(max_length=50, verbose_name='Прізвище', blank=True, null=True)
+    customerPhone = models.CharField(max_length=12, blank=True, default='', verbose_name='Номер телефону', unique=True)
+    paymentMethod = models.CharField(max_length=50, choices=PAYMENT_CHOICES, default=ONLINE, verbose_name='Спосіб оплати', blank=True)
+    orderList = models.ManyToManyField(Dish, verbose_name='Зміст замовлення', blank=True)
+    orderTime = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата замовлення')
     paid = models.BooleanField(default=False, verbose_name='Оплата')
 
     class Meta:
@@ -25,4 +28,4 @@ class Order(models.Model):
         verbose_name_plural = 'Замовлення'
 
     def __str__(self):
-        return str(self.full_name)
+        return '{0} {1}'.format(self.name, self.surname)
