@@ -17,7 +17,7 @@ class Order(models.Model):
 
     name = models.CharField(max_length=30, verbose_name="Ім'я", blank=True, null=True)
     surname = models.CharField(max_length=50, verbose_name='Прізвище', blank=True, null=True)
-    customerPhone = models.CharField(max_length=12, blank=True, default='', verbose_name='Номер телефону', unique=True)
+    customerPhone = models.CharField(max_length=12, blank=True, default='', verbose_name='Номер телефону')
     paymentMethod = models.CharField(max_length=50, choices=PAYMENT_CHOICES, default=ONLINE, verbose_name='Спосіб оплати', blank=True)
     orderList = models.ManyToManyField(Dish, verbose_name='Зміст замовлення', blank=True)
     orderTime = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата замовлення')
@@ -29,3 +29,5 @@ class Order(models.Model):
 
     def __str__(self):
         return '{0} {1}'.format(self.name, self.surname)
+
+
