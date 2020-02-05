@@ -2,43 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8c040b2-f0f9-4808-ae4a-5f17e1c64a1b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/account/api/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/api/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/api/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/signals.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0002_order_ordersum.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0003_auto_20200123_1348.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0004_auto_20200123_1833.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0005_auto_20200123_1833.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0006_auto_20200123_1848.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0007_auto_20200123_1851.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0008_auto_20200123_1930.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0009_auto_20200123_1945.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0010_auto_20200125_1003.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/migrations/0011_auto_20200125_1028.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/signals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/migrations/0002_auto_20200118_1626.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/migrations/0003_auto_20200119_1127.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eatmeApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/eatmeApp/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eatmeApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/eatmeApp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu/migrations/0002_auto_20200119_0942.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu/migrations/0003_auto_20200119_1127.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/migrations/0002_auto_20200119_0946.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/migrations/0003_auto_20200119_1026.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/order/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -77,14 +42,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/account/api/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="336">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/eatmeApp/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="106" column="78" selection-start-line="106" selection-start-column="78" selection-end-line="106" selection-end-column="78" />
             </state>
           </provider>
         </entry>
@@ -93,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/account/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="460">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -118,7 +92,6 @@
       <list>
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/order/admin.py" />
-        <option value="$PROJECT_DIR$/eatmeApp/settings.py" />
         <option value="$PROJECT_DIR$/eatmeApp/urls.py" />
         <option value="$PROJECT_DIR$/account/api/urls.py" />
         <option value="$PROJECT_DIR$/account/api/views.py" />
@@ -128,6 +101,7 @@
         <option value="$PROJECT_DIR$/account/admin.py" />
         <option value="$PROJECT_DIR$/account/signals.py" />
         <option value="$PROJECT_DIR$/account/api/serializers.py" />
+        <option value="$PROJECT_DIR$/eatmeApp/settings.py" />
       </list>
     </option>
   </component>
@@ -164,23 +138,7 @@
             <path>
               <item name="eat-me" type="b2602c69:ProjectViewProjectNode" />
               <item name="eat-me" type="462c0819:PsiDirectoryNode" />
-              <item name="account" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eat-me" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eat-me" type="462c0819:PsiDirectoryNode" />
-              <item name="account" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eat-me" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eat-me" type="462c0819:PsiDirectoryNode" />
               <item name="eatmeApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eat-me" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eat-me" type="462c0819:PsiDirectoryNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -259,8 +217,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3280757" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49934125" visible="true" weight="0.3112513" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1390625" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49934125" visible="true" weight="0.3112513" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1390625" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="right" id="Database" order="4" weight="0.32916668" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -319,20 +277,6 @@
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/eatmeApp/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -442,20 +386,34 @@
     <entry file="file://$PROJECT_DIR$/account/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/account/api/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eatmeApp/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="106" column="78" selection-start-line="106" selection-start-column="78" selection-end-line="106" selection-end-column="78" />
         </state>
       </provider>
     </entry>
