@@ -1,32 +1,33 @@
 from account.models import Account, FastCostumer
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import AccountSerializer, FastCostumerSerializer
 
 
-@api_view(['GET', 'POST'])
-def account_list(request):
-    if request.method == 'GET':
-        accounts = Account.objects.all()
-        serializer = AccountSerializer(accounts, many=True)
+class FastCostumerList(APIView):
+
+    def get(self, request, format=None):
+        fastCostumers = FastCostumer.objects.all()
+        serializer = FastCostumerSerializer(fastCostumers, many=True)
         return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = AccountSerializer(data=request.data)
+
+    def post(self, request, format=None):
+        serializer = FastCostumerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class AccountList(APIView):
 
-@api_view(['GET', 'POST'])
-def fast_costumer_list(request):
-    if request.method == 'GET':
-        fastCostumers = FastCostumer.objects.all()
-        serializer = FastCostumerSerializer(fastCostumers, many=True)
+    def get(self, request, format=None):
+        accounts = Account.objects.all()
+        serializer = AccountSerializer(accounts, many=True)
         return Response(serializer.data)
-    elif request.method == 'POST':
+
+    def post(self, request, format=None):
         serializer = FastCostumerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
