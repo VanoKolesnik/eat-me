@@ -34,7 +34,7 @@ class Dish(models.Model):
     ]
 
     name = models.CharField(max_length=150, blank=True, null=True, verbose_name='Назва')
-    cuisine = models.ForeignKey(Cuisine, on_delete=models.PROTECT, verbose_name='Кухня' , blank=True, null=True)
+    cuisine = models.ForeignKey(Cuisine, on_delete=models.PROTECT, verbose_name='Кухня', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категорія', blank=True, null=True)
     image = models.ImageField(upload_to='foodImages', verbose_name='Зображення', null=True, blank=True)
     price = models.FloatField(default=0, verbose_name='Ціна', null=True, blank=True)
