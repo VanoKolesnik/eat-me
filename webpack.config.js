@@ -1,74 +1,20 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const entries = require("./config/entries");
+const modules = require("./config/modules");
+const plugins = require("./config/plugins");
+const devServer = require("./config/devServer");
 
 module.exports = {
-	entry: {
-		common: "./source/scripts/common.js",
-		index: "./source/scripts/index.jsx",
-	},
+	entry: entries,
 	output: {
 		path: path.join(__dirname, "/build"),
-		filename: "./scripts/[name][hash].js",
+		filename: "./scripts/[name].[hash:8].js",
 	},
 	resolve: {
 		extensions: [".jsx", ".js"],
 	},
-	module: {
-		rules: [
-			{
-				test: /\.jsx?$/,
-				exclude: /node_modules/,
-				use: {
-					loader: "babel-loader",
-				},
-			},
-			{
-				test: /\.css$/,
-				use: [
-					{
-						loader: "style-loader",
-					},
-					{
-						loader: "css-loader",
-					},
-				],
-			},
-			{
-				test: /\.less$/,
-				loader: "less-loader",
-				options: {
-					javascriptEnabled: true,
-				},
-			},
-			{
-				test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-				loader: require.resolve("url-loader"),
-				options: {
-					limit: 10000,
-					name: "/static/media/[name].[hash:8].[ext]",
-				},
-			},
-			{
-				test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
-				loader: require.resolve("file-loader"),
-				options: {
-					name: "/static/media/[name].[hash:8].[ext]",
-				},
-			},
-		],
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: "./source/public/index.html",
-			filename: "./index.html",
-			chunks: ["common", "index"],
-		}),
-	],
-	devServer: {
-		contentBase: path.join(__dirname, "source"),
-		liveReload: true,
-		inline: true,
-		port: 1337,
-		hot: true,
-	},
+	module: modules,
+	plugins: plugins,
+	devServer: devServer,
 };

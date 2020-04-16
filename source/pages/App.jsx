@@ -1,12 +1,13 @@
 import React from "react";
 
-import Categories from "./Categories";
-
 const App = () => {
 	return (
-		<div>
-			<Categories />
-		</div>
+		<>
+			<div>there should be a landing page</div>
+			<div>
+				and there is <a href="/establishments">Establishments</a>
+			</div>
+		</>
 	);
 };
 

@@ -6,6 +6,7 @@ import {
 } from "../utilities/constants";
 
 const getCategories = () => ({ type: GET_CATEGORIES });
+
 const getCategoriesSuccess = (categories) => ({
 	type: GET_CATEGORIES_SUCCESS,
 	payload: categories,
