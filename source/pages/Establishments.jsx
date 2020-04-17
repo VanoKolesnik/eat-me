@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Grid } from "semantic-ui-react";
 
 import Header from "../components/Header";
-import SidebarFilter from "../components/SidebarFilter";
+import FilterCategoriesCuisines from "../components/FilterCategoriesCuisines";
 
 import { fetchCategories } from "../actions/categoriesActions";
 import { fetchCuisines } from "../actions/cuisinesActions";
@@ -46,7 +46,7 @@ const Establishments = ({
 			setLoading(false);
 		}
 
-		if (hasErrorsCategories && hasErrorsCuisines) {
+		if (hasErrorsCategories || hasErrorsCuisines) {
 			setHasErrors(true);
 		} else {
 			setHasErrors(false);
@@ -63,7 +63,7 @@ const Establishments = ({
 			<Header />
 			<Grid divided padded>
 				<Grid.Column className="test" mobile={16} tablet={5} computer={5}>
-					<SidebarFilter
+					<FilterCategoriesCuisines
 						menuItems={filterData}
 						loading={loading}
 						hasErrors={hasErrors}
@@ -84,8 +84,8 @@ const mapStateToProps = (state) => ({
 	hasErrorsCategories: state.categories.hasErrors,
 
 	cuisines: state.cuisines.cuisines,
-	loadingCuisines: state.categories.loading,
-	hasErrorsCuisines: state.categories.hasErrors,
+	loadingCuisines: state.cuisines.loading,
+	hasErrorsCuisines: state.cuisines.hasErrors,
 });
 
 export default connect(mapStateToProps)(Establishments);

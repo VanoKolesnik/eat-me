@@ -1,10 +1,4 @@
-import {
-	FILTER_CATEGORIES_GET,
-	FILTER_CATEGORIES_CHECKED,
-	FILTER_CATEGORIES_UNCHECKED_ALL,
-} from "../utilities/constants";
-
-export const filterCategoriesGet = () => ({ type: FILTER_CATEGORIES_GET });
+import { FILTER_CATEGORIES_CHECKED, FILTER_CATEGORIES_UNCHECKED_ALL } from "../utilities/constants";
 
 const filterCategoriesChecked = (checkedCategories) => ({
 	type: FILTER_CATEGORIES_CHECKED,
@@ -19,20 +13,12 @@ export const filterCategoriesUncheckedAll = () => ({
 export function toggleCategoriesChecked(categoryValue) {
 	return (dispatch, getState) => {
 		const checkedCategories = [...getState().filterCategories.checked];
-		let isExists = false;
-		let checkedId = -1;
+		let checkedId = checkedCategories.indexOf(categoryValue);
 
-		checkedCategories.map((checkedCategory, id) => {
-			if (checkedCategory === categoryValue) {
-				isExists = true;
-				checkedId = id;
-			}
-		});
-
-		if (isExists) {
-			checkedCategories.splice(checkedId, 1);
-		} else {
+		if (checkedId === -1) {
 			checkedCategories.push(categoryValue);
+		} else {
+			checkedCategories.splice(checkedId, 1);
 		}
 
 		dispatch(filterCategoriesChecked(checkedCategories));
