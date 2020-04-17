@@ -4,8 +4,7 @@ const filterCategoriesChecked = (checkedCategories) => ({
 	type: FILTER_CATEGORIES_CHECKED,
 	payload: checkedCategories,
 });
-
-export const filterCategoriesUncheckedAll = () => ({
+const filterCategoriesUncheckedAll = () => ({
 	type: FILTER_CATEGORIES_UNCHECKED_ALL,
 	payload: [],
 });
@@ -13,7 +12,7 @@ export const filterCategoriesUncheckedAll = () => ({
 export function toggleCategoriesChecked(categoryValue) {
 	return (dispatch, getState) => {
 		const checkedCategories = [...getState().filterCategories.checked];
-		let checkedId = checkedCategories.indexOf(categoryValue);
+		const checkedId = checkedCategories.indexOf(categoryValue);
 
 		if (checkedId === -1) {
 			checkedCategories.push(categoryValue);
@@ -22,5 +21,10 @@ export function toggleCategoriesChecked(categoryValue) {
 		}
 
 		dispatch(filterCategoriesChecked(checkedCategories));
+	};
+}
+export function uncheckedAllFilterCategories() {
+	return (dispatch) => {
+		dispatch(filterCategoriesUncheckedAll());
 	};
 }

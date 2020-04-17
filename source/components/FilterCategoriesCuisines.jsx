@@ -4,11 +4,11 @@ import { Menu, Checkbox, Button, Icon, Header, Grid } from "semantic-ui-react";
 
 import {
 	toggleCategoriesChecked,
-	filterCategoriesUncheckedAll,
+	uncheckedAllFilterCategories,
 } from "../actions/filterCategoriesActions";
 import {
 	toggleCuisinesChecked,
-	filterCuisinesUncheckedAll,
+	uncheckedAllFilterCuisines,
 } from "../actions/filterCuisinesActions";
 
 const Loading = ({ loading }) => {

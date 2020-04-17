@@ -1,4 +1,8 @@
-import { GET_CUISINES, GET_CUISINES_SUCCESS, GET_CUISINES_FAILURE } from "../utilities/constants";
+import {
+	GET_CUISINES,
+	GET_CUISINES_SUCCESS,
+	GET_CUISINES_FAILURE,
+} from "../../utilities/constants";
 
 const initialState = {
 	loading: false,

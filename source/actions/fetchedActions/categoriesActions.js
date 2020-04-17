@@ -3,10 +3,9 @@ import {
 	GET_CATEGORIES,
 	GET_CATEGORIES_SUCCESS,
 	GET_CATEGORIES_FAILURE,
-} from "../utilities/constants";
+} from "../../utilities/constants";
 
 const getCategories = () => ({ type: GET_CATEGORIES });
-
 const getCategoriesSuccess = (categories) => ({
 	type: GET_CATEGORIES_SUCCESS,
 	payload: categories,

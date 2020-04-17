@@ -5,7 +5,7 @@ const filterCuisinesChecked = (checkedCuisines) => ({
 	payload: checkedCuisines,
 });
 
-export const filterCuisinesUncheckedAll = () => ({
+const filterCuisinesUncheckedAll = () => ({
 	type: FILTER_CUISINES_UNCHECKED_ALL,
 	payload: [],
 });
@@ -13,7 +13,7 @@ export const filterCuisinesUncheckedAll = () => ({
 export function toggleCuisinesChecked(cuisineValue) {
 	return (dispatch, getState) => {
 		const checkedCuisines = [...getState().filterCuisines.checked];
-		let checkedId = checkedCuisines.indexOf(cuisineValue);
+		const checkedId = checkedCuisines.indexOf(cuisineValue);
 
 		if (checkedId === -1) {
 			checkedCuisines.push(cuisineValue);
@@ -22,5 +22,10 @@ export function toggleCuisinesChecked(cuisineValue) {
 		}
 
 		dispatch(filterCuisinesChecked(checkedCuisines));
+	};
+}
+export function uncheckedAllFilterCuisines() {
+	return (dispatch) => {
+		dispatch(filterCuisinesUncheckedAll());
 	};
 }

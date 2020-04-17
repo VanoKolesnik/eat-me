@@ -2,7 +2,7 @@ import {
 	GET_CATEGORIES,
 	GET_CATEGORIES_SUCCESS,
 	GET_CATEGORIES_FAILURE,
-} from "../utilities/constants";
+} from "../../utilities/constants";
 
 const initialState = {
 	loading: false,

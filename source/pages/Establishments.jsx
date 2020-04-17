@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Grid } from "semantic-ui-react";
+import { Grid, Segment } from "semantic-ui-react";
 
 import Header from "../components/Header";
 import FilterCategoriesCuisines from "../components/FilterCategoriesCuisines";
+import Search from "../components/Search";
 
-import { fetchCategories } from "../actions/categoriesActions";
-import { fetchCuisines } from "../actions/cuisinesActions";
+import { fetchCategories } from "../actions/fetchedActions/categoriesActions";
+import { fetchCuisines } from "../actions/fetchedActions/cuisinesActions";
 
 const Establishments = ({
 	dispatch,
@@ -60,7 +61,7 @@ const Establishments = ({
 
 	return (
 		<>
-			<Header />
+			<Header inverted />
 			<Grid divided padded>
 				<Grid.Column className="test" mobile={16} tablet={5} computer={5}>
 					<FilterCategoriesCuisines
@@ -71,7 +72,12 @@ const Establishments = ({
 					/>
 				</Grid.Column>
 				<Grid.Column mobile={16} tablet={11} computer={11}>
-					<span>search, content</span>
+					<Segment.Group>
+						<Segment>
+							<Search fluid />
+						</Segment>
+						<Segment.Group>establishments</Segment.Group>
+					</Segment.Group>
 				</Grid.Column>
 			</Grid>
 		</>
