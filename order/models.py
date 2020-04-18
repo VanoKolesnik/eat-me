@@ -8,7 +8,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Замовлення'
         verbose_name_plural = 'Замовлення'
-    
+
     CASHTOCOURIER = 'cash'
     CASHLESSTOCOURIER = 'cashless'
     ONLINE = 'online'
@@ -19,21 +19,31 @@ class Order(models.Model):
         (ONLINE, 'Оплата онлайн'),
     ]
 
-    name = models.CharField(max_length=30, verbose_name="Ім'я", blank=True, null=True)
-    surname = models.CharField(max_length=50, verbose_name='Прізвище', blank=True, null=True)
-    customerPhone = models.CharField(max_length=12, blank=True, default='', verbose_name='Номер телефону')
-    paymentMethod = models.CharField(max_length=50, choices=PAYMENT_CHOICES, default=ONLINE, verbose_name='Спосіб оплати', blank=True)
-    orderList = models.ManyToManyField(Dish, verbose_name='Зміст замовлення', blank=True)
-    orderTime = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата замовлення')
-    
+    name = models.CharField(
+        max_length=30, verbose_name="Ім'я", blank=True, null=True)
+    surname = models.CharField(
+        max_length=50, verbose_name='Прізвище', blank=True, null=True)
+    customerPhone = models.CharField(
+        max_length=12, blank=True, default='', verbose_name='Номер телефону')
+    paymentMethod = models.CharField(
+        max_length=50, choices=PAYMENT_CHOICES, default=ONLINE, verbose_name='Спосіб оплати', blank=True)
+    orderList = models.ManyToManyField(
+        Dish, verbose_name='Зміст замовлення', blank=True)
+    orderTime = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, verbose_name='Дата замовлення')
+    totalPrice = models.IntegerField(
+        'Сума замовлення', default=0, blank=True, null=True)
+    totalQuantity = models.IntegerField(
+        'Всього страв', default=0, blank=True, null=True)
+
     def order_list(self):
         dishesList = []
-        selfDishes= self.orderList.all()
+        selfDishes = self.orderList.all()
         for dish in selfDishes:
             dishesList.append(dish)
 
         return dishesList
-    order_list.short_description = 'Список страв' 
+    order_list.short_description = 'Список страв'
 
     def get_cost(self):
         cost = self.orderList.all()
@@ -41,14 +51,11 @@ class Order(models.Model):
         for i in cost:
             totalCost += i.price
 
-        return totalCost 
-    get_cost.short_description = 'Сума'    
-    
+        return totalCost
+    get_cost.short_description = 'Сума'
+
     paid = models.BooleanField(default=False, verbose_name='Оплата')
 
     def __str__(self):
         return '{0} {1}'.format(self.name, self.surname)
-    
-
-
 

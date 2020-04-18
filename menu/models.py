@@ -1,7 +1,18 @@
 from django.db import models
 
+
+class CategoryEstablishment(models.Model):
+    name = models.CharField(max_length=30, blank=True,
+                            null=True, verbose_name='Назва')
+    class Meta:
+        verbose_name = 'Категорія Закладу'
+        verbose_name_plural = 'Категорія Зaкладів'
+
+    def __str__(self):
+        return self.name
+
 class Cuisine(models.Model):
-    name = models.CharField(max_length=30, blank=True, null='True', verbose_name='Назва')
+    name = models.CharField(max_length=30, blank=True, null=True, verbose_name='Назва')
 
     class Meta:
         verbose_name = 'Кухня'
@@ -36,7 +47,7 @@ class Dish(models.Model):
     name = models.CharField(max_length=150, blank=True, null=True, verbose_name='Назва')
     cuisine = models.ForeignKey(Cuisine, on_delete=models.PROTECT, verbose_name='Кухня', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категорія', blank=True, null=True)
-    image = models.ImageField(upload_to='foodImages', verbose_name='Зображення', null=True, blank=True)
+    image = models.URLField('Зображення', blank=True, null=True)
     price = models.FloatField(default=0, verbose_name='Ціна', null=True, blank=True)
     weight = models.FloatField(default=0, verbose_name='Вага', null=True, blank=True)
     composition = models.TextField(verbose_name='Склад', blank=True, null=True)
@@ -53,10 +64,11 @@ class Dish(models.Model):
 class Institution(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True, verbose_name='Назва')
     phone = models.CharField(max_length=12, blank=True, verbose_name='Мобільний телефон', unique=True)
-    image = models.ImageField(upload_to='institutionImages', verbose_name='Зображення', null=True, blank=True)
+    image = models.URLField('Зображення', blank=True, null=True)
     cuisine = models.ManyToManyField(Cuisine, verbose_name='Кухня', blank=True)
     menu = models.ManyToManyField(Dish, verbose_name='Меню', blank=True)
     about = models.TextField(verbose_name='Про заклад', blank=True, null=True)
+    category = models.ForeignKey(CategoryEstablishment, on_delete=models.PROTECT, verbose_name='Категорія закладу', null=True, blank=True)
     timeFrom = models.TimeField(verbose_name='Від', blank=True, null=True)
     timeBefore = models.TimeField(verbose_name='До', blank=True, null=True)
     position = models.CharField(max_length=100, verbose_name='Адреса', blank=True, null=True)
