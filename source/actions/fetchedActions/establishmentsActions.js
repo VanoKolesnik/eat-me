@@ -1,4 +1,5 @@
 import {
+	API_URL,
 	GET_ESTABLISHMENTS,
 	GET_ESTABLISHMENTS_SUCCESS,
 	GET_ESTABLISHMENTS_FAILURE,
@@ -11,7 +12,7 @@ const getEstablishmentsSuccess = (establishments) => ({
 });
 const getEstablishmentsFailure = () => ({ type: GET_ESTABLISHMENTS_FAILURE });
 
-export function fetchEstablishments() {
+export function fetchEstablishments(id) {
 	return async (dispatch) => {
 		dispatch(getEstablishments());
 

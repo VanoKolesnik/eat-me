@@ -2,11 +2,13 @@ import { combineReducers } from "redux";
 
 import categoriesReducer from "./fetchedReducers/categoriesReducer";
 import cuisinesReducer from "./fetchedReducers/cuisinesReducer";
+import establishmentsCategoriesReducer from "./fetchedReducers/establishmentsCategoriesReducer";
+
 import establishmentsReducer from "./fetchedReducers/establishmentsReducer";
 import accountsReducer from "./fetchedReducers/accountsReducer";
 import fastCustomersReducer from "./fetchedReducers/fastCustomersReducer";
 import dishesReducer from "./fetchedReducers/dishesReducer";
-import ordersReduce from "./fetchedReducers/ordersReduce";
+import ordersReduce from "./fetchedReducers/ordersReducer";
 
 import searchReducer from "./searchReducer";
 import filterCategoriesReducer from "./filterCategoriesReducer";
@@ -15,6 +17,8 @@ import filterCuisinesReducer from "./filterCuisinesReducer";
 const rootReducer = combineReducers({
 	categories: categoriesReducer,
 	cuisines: cuisinesReducer,
+	establishmentsCategories: establishmentsCategoriesReducer,
+
 	establishments: establishmentsReducer,
 	accounts: accountsReducer,
 	fastCustomers: fastCustomersReducer,

@@ -1,4 +1,4 @@
-import { SEARCH_CHANGED, SEARCH_CLEARED } from "../../utilities/constants";
+import { SEARCH_CHANGED, SEARCH_CLEARED } from "../utilities/constants";
 
 const initialState = {
 	value: "",
