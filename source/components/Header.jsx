@@ -42,7 +42,7 @@ const MenuItems = ({ items, minWidth, quantity }) => {
 			<Menu.Item href={item.href}>
 				{item.title}
 				{item.title === "Замовлення" ? (
-					quantity === null ? null : quantity === "" ? null : (
+					quantity === null ? null : quantity === 0 ? null : (
 						<Label color="teal" size="mini">
 							{quantity}
 						</Label>
@@ -57,7 +57,7 @@ const DropdownItems = ({ items, quantity }) => {
 		<Dropdown.Item href={item.href} key={key} as="a">
 			{item.title}
 			{item.title === "Замовлення" ? (
-				quantity === null ? null : quantity === "" ? null : (
+				quantity === null ? null : quantity === 0 ? null : (
 					<Label color="teal" size="mini">
 						{quantity}
 					</Label>
@@ -78,6 +78,7 @@ const Header = ({ dispatch, orderQuantity }) => {
 		{ title: "Профіль", href: "/profile" },
 	]);
 	useEffect(() => {
+		// dispatch(getOrder());
 		dispatch(setOrderQuantity(orderQuantity));
 	}, [dispatch]);
 

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Card, Image, Icon } from "semantic-ui-react";
 
-import { setOrderQuantity } from "../actions/orderActions";
-
-import { SELECTED_DISHES } from "../utilities/constants";
+import { setOrderDishe, setOrderQuantity } from "../actions/orderActions";
 
 const DishesList = ({
 	dishes,
@@ -12,7 +10,7 @@ const DishesList = ({
 	dispatch,
 
 	search,
-	quantity,
+	orderQuantity,
 	filterCategoriesChecked,
 	filterCuisinesChecked,
 }) => {
@@ -23,8 +21,8 @@ const DishesList = ({
 	}, [dishes]);
 
 	useEffect(() => {
-		dispatch(setOrderQuantity(quantity));
-	}, [quantity]);
+		dispatch(setOrderQuantity(orderQuantity));
+	}, [orderQuantity]);
 
 	useEffect(() => {
 		setFilteredDishes(filterDishes(dishes));
@@ -69,48 +67,7 @@ const DishesList = ({
 	};
 
 	const handleDish = (dishId) => {
-		let selectedDishes = JSON.parse(localStorage.getItem(SELECTED_DISHES));
-		if (selectedDishes === null) {
-			localStorage.setItem(
-				SELECTED_DISHES,
-				JSON.stringify([
-					{
-						id: dishId,
-						quantity: 1,
-					},
-				])
-			);
-			dispatch(setOrderQuantity(1));
-		} else {
-			let isExists = false;
-			let dishIdCash = null;
-
-			selectedDishes.map((dish, id) => {
-				if (dish.id === dishId) {
-					isExists = true;
-					dishIdCash = id;
-				}
-			});
-
-			if (isExists) {
-				selectedDishes[dishIdCash].quantity = ++selectedDishes[dishIdCash].quantity;
-
-				localStorage.setItem(SELECTED_DISHES, JSON.stringify([...selectedDishes]));
-				dispatch(setOrderQuantity(++quantity));
-			} else {
-				localStorage.setItem(
-					SELECTED_DISHES,
-					JSON.stringify([
-						...selectedDishes,
-						{
-							id: dishId,
-							quantity: 1,
-						},
-					])
-				);
-				dispatch(setOrderQuantity(++quantity));
-			}
-		}
+		dispatch(setOrderDishe(dishId));
 	};
 
 	return (
@@ -141,7 +98,8 @@ const DishesList = ({
 
 const mapStateToProps = (state) => ({
 	search: state.search.value,
-	quantity: state.order.quantity,
+	orderDishes: state.order.dishes,
+	orderQuantity: state.order.quantity,
 	filterCategoriesChecked: state.filterCategories.checked,
 	filterCuisinesChecked: state.filterCuisines.checked,
 });
