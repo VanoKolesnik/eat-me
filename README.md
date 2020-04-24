@@ -1,6 +1,6 @@
 # Eat Me
 
-supported by [@StasVorobiov](https://github.com/StasVorobiov). ❤
+together with [@StasVorobiov](https://github.com/StasVorobiov). ❤
 
 My thesis project. Nothing interesting, but if you want to run it, just believe in a miracle and do the following:
 

@@ -171,7 +171,7 @@ const OrderCredentials = ({
 			totalQuantity: orderData.quantity,
 			totalPrice: orderData.totalPrice,
 			orderList: dishes,
-			order_list: orderDishes,
+			orderListTextField: JSON.stringify(orderDishes),
 		};
 		dispatch(postOrder(order));
 	};
