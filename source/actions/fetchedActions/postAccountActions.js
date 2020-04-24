@@ -12,7 +12,7 @@ const postAccountSuccess = (response) => ({
 });
 const postAccountFailure = () => ({ type: POST_ACCOUNT_FAILURE });
 
-export function postAccount(order) {
+export function postAccount(accountData) {
 	return async (dispatch) => {
 		dispatch(postAccountBegin());
 
@@ -22,7 +22,7 @@ export function postAccount(order) {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(order),
+				body: JSON.stringify(accountData),
 			});
 			const response = await request.json();
 

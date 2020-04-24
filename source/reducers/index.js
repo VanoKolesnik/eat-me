@@ -13,6 +13,8 @@ import ordersReduce from "./fetchedReducers/ordersReducer";
 import postOrderReducer from "./fetchedReducers/postOrderReducer";
 import postAccountReducer from "./fetchedReducers/postAccountReducer";
 
+import patchAccountReducer from "./fetchedReducers/patchAccountReducer";
+
 import searchReducer from "./searchReducer";
 import orderReducer from "./orderReducer";
 import filterCategoriesReducer from "./filterCategoriesReducer";
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
 
 	postOrder: postOrderReducer,
 	postAccount: postAccountReducer,
+
+	patchAccount: patchAccountReducer,
 
 	search: searchReducer,
 	order: orderReducer,
