@@ -31,6 +31,19 @@ const setLocalStorageDispatch = (dispatch, dish, quantity = 0, totalPrice = 0) =
 	dispatch(setOrderTotalPrice(totalPrice));
 };
 
+export const setEmptyLocalStorageDispatch = () => {
+	return (dispatch) => {
+		localStorage.setItem(ORDER_DISHES, JSON.stringify([]));
+		dispatch(setOrderDishes([]));
+
+		localStorage.setItem(ORDER_QUANTITY, 0);
+		dispatch(setOrderQuantity(0));
+
+		localStorage.setItem(ORDER_TOTAL_PRICE, 0);
+		dispatch(setOrderTotalPrice(0));
+	};
+};
+
 export const setOrderDish = (dishId) => {
 	return (dispatch, getState) => {
 		const quantity = getState().order.quantity;
@@ -98,7 +111,7 @@ export const setOrderDishSubstraction = (dishId) => {
 		let selectedDishes = [...getState().order.dishes];
 
 		let dishIdCash = null;
-		let dish, selectedDish;
+		let dish;
 
 		dishes.map((dishCash) => {
 			if (dishCash.id === dishId) {

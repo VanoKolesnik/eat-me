@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import md5 from "md5";
 import { Grid, Segment, Button, Form } from "semantic-ui-react";
+import { SemanticToastContainer, toast } from "react-semantic-toasts";
+import "react-semantic-toasts/styles/react-semantic-alert.css";
 
 import Header from "../components/Header";
 import Loading from "../components/Loading";
@@ -35,7 +37,7 @@ const ProfileData = ({ account }) => {
 	);
 };
 
-const ProfileEditMode = ({ dispatch, account, patchAccountLoading,reload }) => {
+const ProfileEditMode = ({ dispatch, account, patchAccountLoading, reload }) => {
 	const [newAccountData, setNewAccountData] = useState({
 		id: account.id,
 		first_name: account.first_name,
@@ -81,10 +83,25 @@ const ProfileEditMode = ({ dispatch, account, patchAccountLoading,reload }) => {
 
 	const handleSubmit = () => {
 		if (isValid(newAccountData)) {
+			toast({
+				type: "success",
+				icon: "checkmark",
+				title: "Готово",
+				description: "Дані успішно редаговано",
+				animation: "fly left",
+				time: 10000,
+			});
 			dispatch(patchAccount(newAccountData));
-			reload()
+			reload();
 		} else {
-			console.log("Ooops..")
+			toast({
+				type: "warning",
+				icon: "warning",
+				title: "Помилка",
+				description: "Перевірте правильність заповнення полів",
+				animation: "fly left",
+				time: 2000,
+			});
 		}
 	};
 
@@ -242,6 +259,7 @@ const Profile = ({
 						<Button fluid>Вихід</Button>
 					</Button.Group>
 				</Grid.Column>
+				<SemanticToastContainer position="bottom-right" />
 			</Grid>
 		</>
 	);

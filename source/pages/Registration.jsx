@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import md5 from "md5";
-import { Grid, Segment, Form, Button, Message } from "semantic-ui-react";
+import { Grid, Segment, Form, Button } from "semantic-ui-react";
+import { SemanticToastContainer, toast } from "react-semantic-toasts";
+import "react-semantic-toasts/styles/react-semantic-alert.css";
 
 import Header from "../components/Header";
 
@@ -53,14 +55,26 @@ const Registration = ({
 
 	const handleSubmit = () => {
 		if (isValid(registrationData)) {
-			console.log("Registered!");
 			dispatch(
 				postAccount({ ...registrationData, password: md5(registrationData.password) })
 			);
-			console.log(accountResponse);
+			toast({
+				type: "success",
+				icon: "checkmark",
+				title: "Готово",
+				description: "Реєстація пройшла успішно",
+				animation: "fly left",
+				time: 10000,
+			});
 		} else {
-			console.log("Nope!");
-			console.log(accountResponse);
+			toast({
+				type: "warning",
+				icon: "warning",
+				title: "Помилка",
+				description: "Перевірте правильність заповнення полів",
+				animation: "fly left",
+				time: 2000,
+			});
 		}
 	};
 
@@ -132,13 +146,14 @@ const Registration = ({
 									onChange={handleInput}
 								/>
 							</Form.Field>
-							<Button type="submit" onClick={handleSubmit}>
+							<Button type="submit" onClick={handleSubmit} fluid color="green">
 								Зареєструватися
 							</Button>
 						</Form>
 					</Segment>
 				</Grid.Column>
 			</Grid>
+			<SemanticToastContainer position="bottom-right" />
 		</>
 	);
 };

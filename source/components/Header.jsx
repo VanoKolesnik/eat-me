@@ -4,6 +4,8 @@ import { Responsive, Menu, Dropdown, Label } from "semantic-ui-react";
 
 import { setOrderQuantity } from "../actions/orderActions";
 
+import { ACCOUNT_ID } from "../utilities/constants";
+
 const emojis = [
 	"😉",
 	"🧐",
@@ -37,34 +39,78 @@ const emojis = [
 const selectEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
 const MenuItems = ({ items, minWidth, quantity }) => {
-	return items.map((item, key) => (
-		<Responsive minWidth={minWidth} key={key}>
-			<Menu.Item href={item.href}>
-				{item.title}
-				{item.title === "Замовлення" ? (
-					quantity === null ? null : quantity === 0 ? null : (
-						<Label color="teal" size="mini">
-							{quantity}
-						</Label>
-					)
-				) : null}
-			</Menu.Item>
-		</Responsive>
-	));
+	return items.map((item, key) => {
+		const accountId = localStorage.getItem(ACCOUNT_ID);
+
+		if (item.title === "Профіль") {
+			if (accountId !== null) {
+				return (
+					<Responsive minWidth={minWidth} key={key}>
+						<Menu.Item href={item.href}>{item.title}</Menu.Item>
+					</Responsive>
+				);
+			}
+		} else if (item.title === "Логін" || item.title === "Реєстрація") {
+			if (accountId === null) {
+				return (
+					<Responsive minWidth={minWidth} key={key}>
+						<Menu.Item href={item.href}>{item.title}</Menu.Item>
+					</Responsive>
+				);
+			}
+		} else {
+			return (
+				<Responsive minWidth={minWidth} key={key}>
+					<Menu.Item href={item.href}>
+						{item.title}
+						{item.title === "Замовлення" ? (
+							quantity === null ? null : quantity === 0 ? null : (
+								<Label color="teal" size="mini">
+									{quantity}
+								</Label>
+							)
+						) : null}
+					</Menu.Item>
+				</Responsive>
+			);
+		}
+	});
 };
 const DropdownItems = ({ items, quantity }) => {
-	return items.map((item, key) => (
-		<Dropdown.Item href={item.href} key={key} as="a">
-			{item.title}
-			{item.title === "Замовлення" ? (
-				quantity === null ? null : quantity === 0 ? null : (
-					<Label color="teal" size="mini">
-						{quantity}
-					</Label>
-				)
-			) : null}
-		</Dropdown.Item>
-	));
+	return items.map((item, key) => {
+		const accountId = localStorage.getItem(ACCOUNT_ID);
+
+		if (item.title === "Профіль") {
+			if (accountId !== null) {
+				return (
+					<Dropdown.Item href={item.href} key={key} as="a">
+						{item.title}
+					</Dropdown.Item>
+				);
+			}
+		} else if (item.title === "Логін" || item.title === "Реєстрація") {
+			if (accountId === null) {
+				return (
+					<Dropdown.Item href={item.href} key={key} as="a">
+						{item.title}
+					</Dropdown.Item>
+				);
+			}
+		} else {
+			return (
+				<Dropdown.Item href={item.href} key={key} as="a">
+					{item.title}
+					{item.title === "Замовлення" ? (
+						quantity === null ? null : quantity === 0 ? null : (
+							<Label color="teal" size="mini">
+								{quantity}
+							</Label>
+						)
+					) : null}
+				</Dropdown.Item>
+			);
+		}
+	});
 };
 
 const Header = ({ dispatch, orderQuantity }) => {

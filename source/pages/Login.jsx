@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import md5 from "md5";
-import { Grid, Segment, Form, Button, Message } from "semantic-ui-react";
+import { Grid, Segment, Form, Button } from "semantic-ui-react";
+import { SemanticToastContainer, toast } from "react-semantic-toasts";
+import "react-semantic-toasts/styles/react-semantic-alert.css";
 
 import Header from "../components/Header";
 
@@ -48,9 +50,24 @@ const Login = ({ dispatch, accounts, accountsLoading, accountsHasErrors }) => {
 
 	const handleSubmit = () => {
 		if (isValid(loginData)) {
-			console.log("Logged In!");
+			toast({
+				type: "success",
+				icon: "checkmark",
+				title: "Готово",
+				description: "Ви успішно увійшли",
+				animation: "fly left",
+				time: 10000,
+			});
+			window.location = "/";
 		} else {
-			console.log("Nope!");
+			toast({
+				type: "warning",
+				icon: "warning",
+				title: "Помилка",
+				description: "Такого користувача не знайдено",
+				animation: "fly left",
+				time: 2000,
+			});
 		}
 	};
 
@@ -82,13 +99,14 @@ const Login = ({ dispatch, accounts, accountsLoading, accountsHasErrors }) => {
 									onChange={handleInput}
 								/>
 							</Form.Field>
-							<Button type="submit" onClick={handleSubmit}>
+							<Button type="submit" onClick={handleSubmit} fluid color="green">
 								Увійти
 							</Button>
 						</Form>
 					</Segment>
 				</Grid.Column>
 			</Grid>
+			<SemanticToastContainer position="bottom-right" />
 		</>
 	);
 };

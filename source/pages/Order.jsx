@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Grid, Segment, Tab, Image, Icon, Button, Form, Dropdown } from "semantic-ui-react";
+import { SemanticToastContainer, toast } from "react-semantic-toasts";
+import "react-semantic-toasts/styles/react-semantic-alert.css";
 
 import Header from "../components/Header";
+import Loading from "../components/Loading";
+import Reload from "../components/Reload";
 
 import { fetchAccounts } from "../actions/fetchedActions/accountsActions";
 import { fetchDishes } from "../actions/fetchedActions/dishesActions";
@@ -12,6 +16,7 @@ import {
 	setOrderDishSubstraction,
 	setOrderDishRemove,
 } from "../actions/orderActions";
+import { setEmptyLocalStorageDispatch } from "../actions/orderActions";
 
 import { ACCOUNT_ID } from "../utilities/constants";
 
@@ -20,7 +25,7 @@ const Dishes = ({ dispatch, dishes, dishesQuantity }) => {
 		dispatch(setOrderDish(id));
 	};
 
-	const handleSubstractionQuantity = (id, quantity) => {
+	const handleSubstractionQuantity = (id) => {
 		dispatch(setOrderDishSubstraction(id));
 	};
 
@@ -161,6 +166,25 @@ const OrderCredentials = ({
 		setOrderData({ ...orderData, paymentMethod: d.value });
 	};
 
+	const isValid = (order) => {
+		let valid = true;
+
+		for (let property in order) {
+			if (property === "orderList") {
+				if (order[property] === []) {
+					valid = false;
+				}
+			} else if (
+				property !== "orderDetail" &&
+				(order[property] === "" || order[property] === "[]")
+			) {
+				valid = false;
+			}
+		}
+
+		return valid;
+	};
+
 	const handleSubmit = () => {
 		const order = {
 			name: orderData.name,
@@ -173,12 +197,33 @@ const OrderCredentials = ({
 			orderList: dishes,
 			orderListTextField: JSON.stringify(orderDishes),
 		};
-		dispatch(postOrder(order));
+		if (isValid(order)) {
+			toast({
+				type: "success",
+				icon: "checkmark",
+				title: "Успіх",
+				description:
+					"Дякуємо за замовлення. Наш адміністратор зв'яжиться з Вами для уточнення деталей",
+				animation: "fly left",
+				time: 10000,
+			});
+			setTimeout(() => (window.location = "/"), 10000);
+			dispatch(setEmptyLocalStorageDispatch());
+			dispatch(postOrder(order));
+		} else {
+			toast({
+				type: "warning",
+				icon: "warning",
+				title: "Помилка",
+				description: "Перевірте, щоб усі поля були заповнені",
+				animation: "fly left",
+				time: 2000,
+			});
+		}
 	};
 
 	return (
 		<>
-			<Grid.Column tablet={4} computer={4} largeScreen={5} widescreen={5} />
 			<Grid.Column mobile={16} tablet={8} computer={8} largeScreen={6} widescreen={6}>
 				<Form>
 					<Form.Field required>
@@ -236,14 +281,14 @@ const OrderCredentials = ({
 					<Form.Field>
 						<Segment>
 							<div>
-								<label>Всього страв:</label> {orderData.quantity}
+								<label>Кількість порцій:</label> {orderData.quantity}
 							</div>
 							<div>
-								<label>Сума замовлення:</label> {orderData.totalPrice}
+								<label>Сума замовлення:</label> {orderData.totalPrice} грн
 							</div>
 						</Segment>
 					</Form.Field>
-					<Button type="submit" onClick={handleSubmit}>
+					<Button type="submit" onClick={handleSubmit} fluid color="green">
 						Підтвердити
 					</Button>
 				</Form>
@@ -307,17 +352,36 @@ const Order = ({
 		setTotalPrice(totalPriceCash);
 	}, [filteredDishes]);
 
+	const reload = () => {
+		const accountId = localStorage.getItem(ACCOUNT_ID);
+
+		if (accountId !== null) {
+			dispatch(fetchAccounts(accountId));
+		}
+		dispatch(fetchDishes());
+	};
+
 	const panes = [
 		{
 			menuItem: "Зміст замовлення",
 			render: () => (
 				<Tab.Pane>
-					<Grid>
-						<Dishes
-							dispatch={dispatch}
-							dishes={filteredDishes}
-							dishesQuantity={orderDishes}
-						/>
+					<Grid centered>
+						{loadingDishes ? (
+							<Grid.Column>
+								<Loading />
+							</Grid.Column>
+						) : hasErrorsDishes ? (
+							<Grid.Column>
+								<Reload reload={reload} />
+							</Grid.Column>
+						) : (
+							<Dishes
+								dispatch={dispatch}
+								dishes={filteredDishes}
+								dishesQuantity={orderDishes}
+							/>
+						)}
 					</Grid>
 				</Tab.Pane>
 			),
@@ -326,15 +390,25 @@ const Order = ({
 			menuItem: "Деталі замовлення",
 			render: () => (
 				<Tab.Pane>
-					<Grid>
-						<OrderCredentials
-							dispatch={dispatch}
-							defaultAccount={account.accounts}
-							dishes={filteredDishes}
-							orderDishes={orderDishes}
-							orderQuantity={orderQuantity}
-							orderTotalPrice={totalPrice}
-						/>
+					<Grid centered>
+						{loadingAccount ? (
+							<Grid.Column>
+								<Loading />
+							</Grid.Column>
+						) : hasErrorsAccount ? (
+							<Grid.Column>
+								<Reload reload={reload} />
+							</Grid.Column>
+						) : (
+							<OrderCredentials
+								dispatch={dispatch}
+								defaultAccount={account.accounts}
+								dishes={filteredDishes}
+								orderDishes={orderDishes}
+								orderQuantity={orderQuantity}
+								orderTotalPrice={totalPrice}
+							/>
+						)}
 					</Grid>
 				</Tab.Pane>
 			),
@@ -344,12 +418,12 @@ const Order = ({
 	return (
 		<>
 			<Header />
-
 			<Grid padded>
 				<Grid.Column>
 					<Tab panes={panes} />
 				</Grid.Column>
 			</Grid>
+			<SemanticToastContainer position="bottom-right" />;
 		</>
 	);
 };
