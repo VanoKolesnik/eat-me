@@ -1,11 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 module.exports = [
-	new HtmlWebpackPlugin({
-		template: "./source/public/index.html",
-		filename: "./index.html",
-		chunks: ["common", "index"],
-	}),
+	new LodashModuleReplacementPlugin(),
 	new HtmlWebpackPlugin({
 		template: "./source/public/establishments.html",
 		filename: "./establishments.html",

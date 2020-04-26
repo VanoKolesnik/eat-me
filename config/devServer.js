@@ -1,6 +1,6 @@
 module.exports = {
 	historyApiFallback: {
-		index: "index.html",
+		index: "establishments.html",
 		rewrites: [
 			{ from: /\/login/, to: "/login.html" },
 			{ from: /\/registration/, to: "/registration.html" },

@@ -39,7 +39,7 @@ module.exports = {
 			test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
 			loader: "url-loader",
 			options: {
-				limit: 10000,
+				limit: 10 * 1024,
 				name: "./static/media/[name].[hash:8].[ext]",
 			},
 		},

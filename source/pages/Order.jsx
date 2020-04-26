@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Grid, Segment, Tab, Image, Icon, Button, Form, Dropdown } from "semantic-ui-react";
+import {
+	Grid,
+	Segment,
+	Message,
+	Tab,
+	Image,
+	Icon,
+	Button,
+	Form,
+	Dropdown,
+} from "semantic-ui-react";
 import { SemanticToastContainer, toast } from "react-semantic-toasts";
 import "react-semantic-toasts/styles/react-semantic-alert.css";
 
@@ -17,8 +27,7 @@ import {
 	setOrderDishRemove,
 } from "../actions/orderActions";
 import { setEmptyLocalStorageDispatch } from "../actions/orderActions";
-
-import { ACCOUNT_ID } from "../utilities/constants";
+import { getAccountId } from "../actions/accountIdActions";
 
 const Dishes = ({ dispatch, dishes, dishesQuantity }) => {
 	const handleAdditionQuantity = (id) => {
@@ -38,12 +47,12 @@ const Dishes = ({ dispatch, dishes, dishesQuantity }) => {
 			{dishes.map((dish) =>
 				dishesQuantity.map((dishQuantity) =>
 					dish.id === dishQuantity.id ? (
-						<Grid.Row key={dish.id}>
-							<Grid columns={3}>
-								<Grid.Column>
+						<Grid.Column width={16} key={dish.id}>
+							<Grid>
+								<Grid.Column mobile={16} tablet={6} computer={6}>
 									<Image src={dish.image} sizy="mini" centered rounded />
 								</Grid.Column>
-								<Grid.Column>
+								<Grid.Column mobile={16} tablet={5} computer={5}>
 									<Grid.Row>
 										<h3>{dish.name}</h3>
 									</Grid.Row>
@@ -60,52 +69,45 @@ const Dishes = ({ dispatch, dishes, dishesQuantity }) => {
 										</Grid>
 									</Grid.Row>
 								</Grid.Column>
-								<Grid.Column>
-									<Grid.Row>
-										<Grid>
-											<Grid.Row>
-												Кіл-ть порцій: {dishQuantity.quantity}
-											</Grid.Row>
-											<Grid.Row>
-												<Grid columns={2}>
-													<Grid.Column>
-														<Button
-															icon
-															onClick={() =>
-																handleAdditionQuantity(dish.id)
-															}
-														>
-															<Icon name="add" color="green" />
-														</Button>
-														<Button
-															icon
-															onClick={() =>
-																handleSubstractionQuantity(dish.id)
-															}
-														>
-															<Icon name="minus" color="yellow" />
-														</Button>
-													</Grid.Column>
-													<Grid.Column>
-														<Button
-															icon
-															onClick={() =>
-																handleRemoveQuantity(dish.id)
-															}
-														>
-															<Icon
-																name="trash alternate"
-																color="red"
-															/>
-														</Button>
-													</Grid.Column>
-												</Grid>
-											</Grid.Row>
-										</Grid>
-									</Grid.Row>
+								<Grid.Column mobile={16} tablet={5} computer={5}>
+									<Grid padded>
+										<Grid.Row>Кіл-ть порцій: {dishQuantity.quantity}</Grid.Row>
+										<Grid.Row>
+											<Grid columns={2}>
+												<Grid.Column>
+													<Button
+														icon
+														onClick={() =>
+															handleAdditionQuantity(dish.id)
+														}
+													>
+														<Icon name="add" color="green" />
+													</Button>
+													<Button
+														icon
+														onClick={() =>
+															handleSubstractionQuantity(dish.id)
+														}
+													>
+														<Icon name="minus" color="yellow" />
+													</Button>
+												</Grid.Column>
+												<Grid.Column>
+													<Button
+														icon
+														onClick={() =>
+															handleRemoveQuantity(dish.id)
+														}
+													>
+														<Icon name="trash alternate" color="red" />
+													</Button>
+												</Grid.Column>
+											</Grid>
+										</Grid.Row>
+									</Grid>
 								</Grid.Column>
 							</Grid>
-						</Grid.Row>
+						</Grid.Column>
 					) : null
 				)
 			)}
@@ -288,7 +290,7 @@ const OrderCredentials = ({
 							</div>
 						</Segment>
 					</Form.Field>
-					<Button type="submit" onClick={handleSubmit} fluid color="green">
+					<Button type="submit" onClick={handleSubmit} fluid color="teal">
 						Підтвердити
 					</Button>
 				</Form>
@@ -299,6 +301,8 @@ const OrderCredentials = ({
 
 const Order = ({
 	dispatch,
+
+	accountId,
 
 	account,
 	loadingAccount,
@@ -315,13 +319,14 @@ const Order = ({
 	const [totalPrice, setTotalPrice] = useState("");
 
 	useEffect(() => {
-		const accountId = localStorage.getItem(ACCOUNT_ID);
+		dispatch(getAccountId());
 
-		if (accountId !== null) {
-			dispatch(fetchAccounts(accountId));
-		}
 		dispatch(fetchDishes());
 	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(fetchAccounts(accountId));
+	}, [accountId]);
 
 	const filterDishes = (dishes) => {
 		const filteredDishes = [];
@@ -353,7 +358,7 @@ const Order = ({
 	}, [filteredDishes]);
 
 	const reload = () => {
-		const accountId = localStorage.getItem(ACCOUNT_ID);
+		dispatch(getAccountId());
 
 		if (accountId !== null) {
 			dispatch(fetchAccounts(accountId));
@@ -419,16 +424,32 @@ const Order = ({
 		<>
 			<Header />
 			<Grid padded>
-				<Grid.Column>
-					<Tab panes={panes} />
-				</Grid.Column>
+				{accountId === null ? (
+					<Grid.Column>
+						<Message warning>
+							<Message.Header>Ви не авторизовані!</Message.Header>
+							<Message.Content>
+								<p>
+									<a href="/registration">Створіть акаунт</a> або{" "}
+									<a href="/login">увійдіть</a> під своїм обліковим записом
+								</p>
+							</Message.Content>
+						</Message>
+					</Grid.Column>
+				) : (
+					<Grid.Column>
+						<Tab panes={panes} />
+					</Grid.Column>
+				)}
 			</Grid>
-			<SemanticToastContainer position="bottom-right" />;
+			<SemanticToastContainer position="bottom-right" />
 		</>
 	);
 };
 
 const mapStateToProps = (state) => ({
+	accountId: state.accountId.id,
+
 	account: state.accounts,
 	loadingAccount: state.accounts.loading,
 	hasErrorsAccount: state.accounts.hasErrors,

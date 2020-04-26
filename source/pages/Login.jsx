@@ -8,11 +8,9 @@ import "react-semantic-toasts/styles/react-semantic-alert.css";
 import Header from "../components/Header";
 
 import { fetchAccounts } from "../actions/fetchedActions/accountsActions";
-
-import { ACCOUNT_ID } from "../utilities/constants";
+import { setAccountId } from "../actions/accountIdActions";
 
 const Login = ({ dispatch, accounts, accountsLoading, accountsHasErrors }) => {
-	const [accountId, setAccountId] = useState(null);
 	const [loginData, setLoginData] = useState({
 		username: "",
 		password: "",
@@ -22,10 +20,6 @@ const Login = ({ dispatch, accounts, accountsLoading, accountsHasErrors }) => {
 		dispatch(fetchAccounts());
 	}, [dispatch]);
 
-	useEffect(() => {
-		localStorage.setItem(ACCOUNT_ID, accountId);
-	}, [accountId]);
-
 	const isValid = (loginData) => {
 		let valid = false;
 
@@ -33,7 +27,7 @@ const Login = ({ dispatch, accounts, accountsLoading, accountsHasErrors }) => {
 			if (accountData.username === loginData.username) {
 				if (accountData.password === md5(loginData.password)) {
 					valid = true;
-					setAccountId(accountData.id);
+					dispatch(setAccountId(accountData.id));
 				}
 			}
 		});
@@ -76,7 +70,7 @@ const Login = ({ dispatch, accounts, accountsLoading, accountsHasErrors }) => {
 			<Header />
 
 			<Grid centered>
-				<Grid.Column width={6}>
+				<Grid.Column mobile={16} tablet={10} computer={6}>
 					<Segment>
 						<Form loading={accountsLoading}>
 							<Form.Field>
@@ -99,7 +93,7 @@ const Login = ({ dispatch, accounts, accountsLoading, accountsHasErrors }) => {
 									onChange={handleInput}
 								/>
 							</Form.Field>
-							<Button type="submit" onClick={handleSubmit} fluid color="green">
+							<Button type="submit" onClick={handleSubmit} fluid color="teal">
 								Увійти
 							</Button>
 						</Form>

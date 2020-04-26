@@ -11,13 +11,12 @@ import Reload from "../components/Reload";
 
 import { fetchAccounts } from "../actions/fetchedActions/accountsActions";
 import { patchAccount } from "../actions/fetchedActions/patchAccountActions";
-
-import { ACCOUNT_ID } from "../utilities/constants";
+import { setAccountId, getAccountId } from "../actions/accountIdActions";
 
 const ProfileData = ({ account }) => {
 	return (
-		<Grid columns={2}>
-			<Grid.Column>
+		<Grid>
+			<Grid.Column mobile={6} tablet={6} computer={6}>
 				<p>Ім'я:</p>
 				<p>Прізвище:</p>
 				<p>Телефон:</p>
@@ -25,7 +24,7 @@ const ProfileData = ({ account }) => {
 				<p>Логін:</p>
 				<p>Пароль:</p>
 			</Grid.Column>
-			<Grid.Column>
+			<Grid.Column mobile={10} tablet={10} computer={10}>
 				<p>{account.first_name}</p>
 				<p>{account.last_name}</p>
 				<p>{account.phone}</p>
@@ -188,7 +187,7 @@ const ProfileEditMode = ({ dispatch, account, patchAccountLoading, reload }) => 
 				type="submit"
 				onClick={handleSubmit}
 				fluid
-				color="green"
+				color="teal"
 				loading={patchAccountLoading}
 			>
 				Редагувати
@@ -205,23 +204,22 @@ const Profile = ({
 	patchAccountResponse,
 	patchAccountLoading,
 	patchAccountHasErrors,
+	accountId,
 }) => {
 	const [editMode, setEditMode] = useState(false);
 
 	useEffect(() => {
-		const accountId = localStorage.getItem(ACCOUNT_ID);
-
-		if (accountId !== null) {
-			dispatch(fetchAccounts(accountId));
-		}
+		dispatch(getAccountId());
 	}, [dispatch]);
 
-	const reload = () => {
-		const accountId = localStorage.getItem(ACCOUNT_ID);
+	useEffect(() => {
+		dispatch(fetchAccounts(accountId));
+	}, [accountId]);
 
-		if (accountId !== null) {
-			dispatch(fetchAccounts(accountId));
-		}
+	const reload = () => {
+		dispatch(getAccountId());
+
+		dispatch(fetchAccounts(accountId));
 	};
 
 	return (
@@ -229,7 +227,7 @@ const Profile = ({
 			<Header />
 
 			<Grid centered padded>
-				<Grid.Column width={10}>
+				<Grid.Column mobile={16} tablet={10} computer={10}>
 					<Segment>
 						{accountLoading ? (
 							<Loading />
@@ -251,12 +249,21 @@ const Profile = ({
 						)}
 					</Segment>
 				</Grid.Column>
-				<Grid.Column width={6}>
-					<Button.Group vertical>
+				<Grid.Column mobile={16} tablet={6} computer={6}>
+					<Button.Group vertical fluid>
 						<Button fluid onClick={() => setEditMode(!editMode)}>
-							Редагувати
+							{editMode ? "Відхилити" : "Редагувати"}
 						</Button>
-						<Button fluid>Вихід</Button>
+						<Button
+							fluid
+							onClick={() => {
+								dispatch(setAccountId(null));
+								window.location = "/";
+							}}
+							color="red"
+						>
+							Вихід
+						</Button>
 					</Button.Group>
 				</Grid.Column>
 				<SemanticToastContainer position="bottom-right" />
@@ -273,6 +280,8 @@ const mapStateToProps = (state) => ({
 	patchAccountResponse: state.patchAccount.response,
 	patchAccountLoading: state.patchAccount.loading,
 	patchAccountHasErrors: state.patchAccount.hasErrors,
+
+	accountId: state.accountId.id,
 });
 
 export default connect(mapStateToProps)(Profile);
