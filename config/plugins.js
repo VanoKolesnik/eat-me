@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 module.exports = [
 	new LodashModuleReplacementPlugin(),

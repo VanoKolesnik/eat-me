@@ -1,4 +1,4 @@
-export const API_URL = "http://eatmeapi.herokuapp.com/api";
+export const API_URL = "https://eatmeapi.herokuapp.com/api";
 
 // Begin LocalStorage
 
