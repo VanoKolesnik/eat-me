@@ -66,6 +66,7 @@ const Registration = ({
 				animation: "fly left",
 				time: 10000,
 			});
+			setTimeout(() => (window.location = "/login"), 2000);
 		} else {
 			toast({
 				type: "warning",
@@ -83,7 +84,7 @@ const Registration = ({
 			<Header />
 
 			<Grid centered>
-				<Grid.Column width={6}>
+				<Grid.Column mobile={16} tablet={10} computer={6}>
 					<Segment>
 						<Form>
 							<Form.Field>
@@ -146,7 +147,7 @@ const Registration = ({
 									onChange={handleInput}
 								/>
 							</Form.Field>
-							<Button type="submit" onClick={handleSubmit} fluid color="green">
+							<Button type="submit" onClick={handleSubmit} fluid color="teal">
 								Зареєструватися
 							</Button>
 						</Form>

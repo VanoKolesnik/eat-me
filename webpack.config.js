@@ -1,6 +1,7 @@
 const path = require("path");
 
 const entries = require("./config/entries");
+const optimization = require("./config/optimization");
 const modules = require("./config/modules");
 const plugins = require("./config/plugins");
 const devServer = require("./config/devServer");
@@ -14,6 +15,7 @@ module.exports = {
 	resolve: {
 		extensions: [".jsx", ".js"],
 	},
+	optimization: optimization,
 	module: modules,
 	plugins: plugins,
 	devServer: devServer,

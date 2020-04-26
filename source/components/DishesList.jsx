@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Card, Image, Icon } from "semantic-ui-react";
+import { Card, Accordion, Grid, Image, Icon, Button } from "semantic-ui-react";
 
 import { setOrderDish, setOrderQuantity } from "../actions/orderActions";
 
@@ -15,6 +15,7 @@ const DishesList = ({
 	filterCuisinesChecked,
 }) => {
 	const [filteredDishes, setFilteredDishes] = useState([]);
+	const [activeDescriptionIndex, setActiveDescriptionIndex] = useState(-1);
 
 	useEffect(() => {
 		setFilteredDishes(filterDishes(dishes));
@@ -73,20 +74,67 @@ const DishesList = ({
 	return (
 		<>
 			<Card.Group stackable centered>
+				{}
 				{filteredDishes.map((dish) =>
 					isValid(dish) ? (
-						<Card key={dish.id} onClick={() => handleDish(dish.id)}>
+						<Card key={dish.id}>
 							<Image src={dish.image} centered rounded />
 							<Card.Content>
 								<Card.Header>{dish.name}</Card.Header>
 							</Card.Content>
+							{dish.composition === "" ? null : (
+								<Card.Content extra>
+									<Accordion>
+										<Accordion.Title
+											active={activeDescriptionIndex === dish.id}
+											index={dish.id}
+											onClick={() => {
+												activeDescriptionIndex === dish.id
+													? setActiveDescriptionIndex(-1)
+													: setActiveDescriptionIndex(dish.id);
+											}}
+										>
+											<Icon name="dropdown" />
+											Вміст
+										</Accordion.Title>
+										<Accordion.Content
+											active={activeDescriptionIndex === dish.id}
+										>
+											<p>{dish.composition}</p>
+										</Accordion.Content>
+									</Accordion>
+								</Card.Content>
+							)}
+
 							<Card.Content extra>
-								<Icon name="globe" />
-								<span>{dish.cuisine.name}</span>
+								<Grid>
+									<Grid.Column width={8}>
+										<Grid.Row>
+											<Icon name="globe" />
+											<span>{dish.cuisine.name}</span>
+										</Grid.Row>
+										<Grid.Row>
+											<Icon name="food" />
+											<span>{dish.category.name}</span>
+										</Grid.Row>
+									</Grid.Column>
+									<Grid.Column width={8}>
+										<Grid.Row>
+											<Icon name="usd" />
+											<span>{dish.price} грн</span>
+										</Grid.Row>
+										<Grid.Row>
+											<Icon name="law" />
+											<span>{dish.weight} г</span>
+										</Grid.Row>
+									</Grid.Column>
+								</Grid>
 							</Card.Content>
+
 							<Card.Content extra>
-								<Icon name="food" />
-								<span>{dish.category.name}</span>
+								<Button onClick={() => handleDish(dish.id)} color="teal" fluid>
+									Додати у кошик
+								</Button>
 							</Card.Content>
 						</Card>
 					) : null

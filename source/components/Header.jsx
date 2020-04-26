@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { Responsive, Menu, Dropdown, Label } from "semantic-ui-react";
 
 import { setOrderQuantity } from "../actions/orderActions";
-
-import { ACCOUNT_ID } from "../utilities/constants";
+import { getAccountId } from "../actions/accountIdActions";
 
 const emojis = [
 	"😉",
@@ -38,10 +37,8 @@ const emojis = [
 
 const selectEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
-const MenuItems = ({ items, minWidth, quantity }) => {
+const MenuItems = ({ items, minWidth, quantity, accountId }) => {
 	return items.map((item, key) => {
-		const accountId = localStorage.getItem(ACCOUNT_ID);
-
 		if (item.title === "Профіль") {
 			if (accountId !== null) {
 				return (
@@ -76,10 +73,8 @@ const MenuItems = ({ items, minWidth, quantity }) => {
 		}
 	});
 };
-const DropdownItems = ({ items, quantity }) => {
+const DropdownItems = ({ items, quantity, accountId }) => {
 	return items.map((item, key) => {
-		const accountId = localStorage.getItem(ACCOUNT_ID);
-
 		if (item.title === "Профіль") {
 			if (accountId !== null) {
 				return (
@@ -113,7 +108,7 @@ const DropdownItems = ({ items, quantity }) => {
 	});
 };
 
-const Header = ({ dispatch, orderQuantity }) => {
+const Header = ({ dispatch, orderQuantity, accountId }) => {
 	const [logoEmoji] = useState(selectEmoji);
 	const [menuItems] = useState([
 		{ title: "Головна", href: "/" },
@@ -123,9 +118,10 @@ const Header = ({ dispatch, orderQuantity }) => {
 		{ title: "Реєстрація", href: "/registration" },
 		{ title: "Профіль", href: "/profile" },
 	]);
+
 	useEffect(() => {
-		// dispatch(getOrder());
 		dispatch(setOrderQuantity(orderQuantity));
+		dispatch(getAccountId());
 	}, [dispatch]);
 
 	return (
@@ -134,12 +130,21 @@ const Header = ({ dispatch, orderQuantity }) => {
 				{logoEmoji} Eat Me
 			</Menu.Item>
 			<Menu.Menu position="right">
-				<MenuItems items={menuItems} minWidth={630} quantity={orderQuantity} />
+				<MenuItems
+					items={menuItems}
+					minWidth={630}
+					quantity={orderQuantity}
+					accountId={accountId}
+				/>
 
 				<Responsive maxWidth={630}>
 					<Dropdown item icon="bars">
 						<Dropdown.Menu>
-							<DropdownItems items={menuItems} quantity={orderQuantity} />
+							<DropdownItems
+								items={menuItems}
+								quantity={orderQuantity}
+								accountId={accountId}
+							/>
 						</Dropdown.Menu>
 					</Dropdown>
 				</Responsive>
@@ -150,6 +155,7 @@ const Header = ({ dispatch, orderQuantity }) => {
 
 const mapStateToProps = (state) => ({
 	orderQuantity: state.order.quantity,
+	accountId: state.accountId.id,
 });
 
 export default connect(mapStateToProps)(Header);

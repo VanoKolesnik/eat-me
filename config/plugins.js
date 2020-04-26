@@ -1,11 +1,10 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 module.exports = [
-	new HtmlWebpackPlugin({
-		template: "./source/public/index.html",
-		filename: "./index.html",
-		chunks: ["common", "index"],
-	}),
+	new BundleAnalyzerPlugin(),
+	new LodashModuleReplacementPlugin(),
 	new HtmlWebpackPlugin({
 		template: "./source/public/establishments.html",
 		filename: "./establishments.html",

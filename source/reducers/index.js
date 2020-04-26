@@ -15,6 +15,7 @@ import postAccountReducer from "./fetchedReducers/postAccountReducer";
 
 import patchAccountReducer from "./fetchedReducers/patchAccountReducer";
 
+import accountIdReducer from "./accountIdReducer";
 import searchReducer from "./searchReducer";
 import orderReducer from "./orderReducer";
 import filterCategoriesReducer from "./filterCategoriesReducer";
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
 
 	patchAccount: patchAccountReducer,
 
+	accountId: accountIdReducer,
 	search: searchReducer,
 	order: orderReducer,
 	filterCategories: filterCategoriesReducer,
