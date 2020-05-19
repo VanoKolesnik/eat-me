@@ -9,4 +9,4 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'name', 'surname', 'user_id', 'customerPhone', 'paymentMethod', 'orderTime',
-                  'orderListTextField', 'get_cost', 'orderDetail', 'totalQuantity', 'totalPrice']
+                  'orderListTextField', 'get_cost', 'orderDetail', 'totalQuantity', 'totalPrice', 'paid', 'delivered']
