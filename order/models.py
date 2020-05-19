@@ -18,7 +18,7 @@ class Order(models.Model):
         (CASHLESSTOCOURIER, "Оплата безготівкова кур'єру"),
         (ONLINE, 'Оплата онлайн'),
     ]
-
+    user_id = models.IntegerField('ID користувача', blank=True, null=True)
     name = models.CharField(
         max_length=30, verbose_name="Ім'я", blank=True, null=True)
     surname = models.CharField(

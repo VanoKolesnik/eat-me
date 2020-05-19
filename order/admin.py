@@ -6,7 +6,7 @@ from .models import Order
 class OrderAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Замовник', {
-            'fields': [('name', 'surname'), 'customerPhone']
+            'fields': [('user_id', 'name', 'surname'), 'customerPhone']
         }),
         ('Інформація про замовлення', {
             'fields': ['paymentMethod', 'orderListTextField', 'totalPrice', 'totalQuantity', 'orderDetail']
