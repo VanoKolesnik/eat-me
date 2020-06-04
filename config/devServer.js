@@ -7,6 +7,7 @@ module.exports = {
 			{ from: /^\/profile$/, to: "/profile.html" },
 			{ from: /^\/order$/, to: "/order.html" },
 			{ from: /^\/orders$/, to: "/orders.html" },
+			{ from: /^\/order-print$/, to: "/order-print.html" },
 			{ from: /^\/establishments$/, to: "/establishments.html" },
 			{ from: /^\/establishment$/, to: "/establishment.html" },
 			{ from: /./, to: "/establishments.html" },

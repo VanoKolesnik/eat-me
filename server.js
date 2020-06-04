@@ -29,6 +29,10 @@ const routes = [
 		template: "order",
 	},
 	{
+		url: "/orders",
+		template: "orders",
+	},
+	{
 		url: "*",
 		template: "establishments",
 	},

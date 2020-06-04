@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Card, Accordion, Grid, Image, Icon, Button } from "semantic-ui-react";
+import { toast } from "react-semantic-toasts";
 
 import { setOrderDish, setOrderQuantity } from "../actions/orderActions";
 
@@ -43,13 +44,15 @@ const DishesList = ({
 		}
 
 		if (filterCategoriesChecked.length) {
-			if (filterCategoriesChecked.indexOf(dish.category.name) !== -1) categoriesValid = true;
+			if (filterCategoriesChecked.indexOf(dish.category.name) !== -1)
+				categoriesValid = true;
 		} else {
 			categoriesValid = true;
 		}
 
 		if (filterCuisinesChecked.length) {
-			if (filterCuisinesChecked.indexOf(dish.cuisine.name) !== -1) cuisinesValid = true;
+			if (filterCuisinesChecked.indexOf(dish.cuisine.name) !== -1)
+				cuisinesValid = true;
 		} else {
 			cuisinesValid = true;
 		}
@@ -74,7 +77,6 @@ const DishesList = ({
 	return (
 		<>
 			<Card.Group stackable centered>
-				{}
 				{filteredDishes.map((dish) =>
 					isValid(dish) ? (
 						<Card key={dish.id}>
@@ -132,7 +134,20 @@ const DishesList = ({
 							</Card.Content>
 
 							<Card.Content extra>
-								<Button onClick={() => handleDish(dish.id)} color="teal" fluid>
+								<Button
+									onClick={() => {
+										handleDish(dish.id);
+										toast({
+											type: "success",
+											icon: "checkmark",
+											title: "Додано",
+											animation: "fly left",
+											time: 1000,
+										});
+									}}
+									color="teal"
+									fluid
+								>
 									Додати у кошик
 								</Button>
 							</Card.Content>

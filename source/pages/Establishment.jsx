@@ -9,6 +9,8 @@ import FilterDishesCategoriesCuisines from "../components/FilterDishesCategories
 import Search from "../components/Search";
 import DishesList from "../components/DishesList";
 
+import { SemanticToastContainer } from "react-semantic-toasts";
+
 import { fetchDishes } from "../actions/fetchedActions/dishesActions";
 import { fetchEstablishments } from "../actions/fetchedActions/establishmentsActions";
 
@@ -17,10 +19,22 @@ import { SELECTED_ESTABLISHMENT_ID } from "../utilities/constants";
 const EstablishmentHeader = ({ establishment }) => {
 	return (
 		<>
-			<Grid.Column mobile={16} tablet={5} computer={5} largeScreen={4} widescreen={3}>
+			<Grid.Column
+				mobile={16}
+				tablet={5}
+				computer={5}
+				largeScreen={4}
+				widescreen={3}
+			>
 				<Image src={establishment.image} centered rounded />
 			</Grid.Column>
-			<Grid.Column mobile={16} tablet={11} computer={11} largeScreen={12} widescreen={13}>
+			<Grid.Column
+				mobile={16}
+				tablet={11}
+				computer={11}
+				largeScreen={12}
+				widescreen={13}
+			>
 				<Grid.Row>
 					<h2>{establishment.name}</h2>
 				</Grid.Row>
@@ -124,6 +138,9 @@ const Establishment = ({
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
+			<div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
+				<SemanticToastContainer position="bottom-right" />
+			</div>
 		</>
 	);
 };

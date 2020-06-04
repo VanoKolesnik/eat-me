@@ -1,5 +1,5 @@
 import {
-	API_URL,
+	API_URL,ORDER_PRINT,
 	GET_ORDERS,
 	GET_ORDERS_SUCCESS,
 	GET_ORDERS_FAILURE,
@@ -26,6 +26,20 @@ export function fetchOrders(accountId) {
 					filteredData.push(item);
 				}
 			});
+
+			dispatch(getOrdersSuccess(filteredData));
+		} catch (error) {
+			dispatch(getOrdersFailure());
+		}
+	};
+}
+
+export function setOrderToStorage(orderData) {
+	return async (dispatch) => {
+		dispatch(getOrders());
+
+		try {
+			localStorage.setItem(ORDER_PRINT, JSON.stringify(orderData))
 
 			dispatch(getOrdersSuccess(filteredData));
 		} catch (error) {

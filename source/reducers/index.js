@@ -9,6 +9,7 @@ import accountsReducer from "./fetchedReducers/accountsReducer";
 import fastCustomersReducer from "./fetchedReducers/fastCustomersReducer";
 import dishesReducer from "./fetchedReducers/dishesReducer";
 import ordersReduce from "./fetchedReducers/ordersReducer";
+import orderPrintReducer from "./orderPrintReducer";
 
 import postOrderReducer from "./fetchedReducers/postOrderReducer";
 import postAccountReducer from "./fetchedReducers/postAccountReducer";
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
 	fastCustomers: fastCustomersReducer,
 	dishes: dishesReducer,
 	orders: ordersReduce,
+	orderPrint: orderPrintReducer,
 
 	postOrder: postOrderReducer,
 	postAccount: postAccountReducer,

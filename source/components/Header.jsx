@@ -60,7 +60,7 @@ const MenuItems = ({ items, minWidth, quantity, accountId }) => {
 				<Responsive minWidth={minWidth} key={key}>
 					<Menu.Item href={item.href}>
 						{item.title}
-						{item.title === "Замовлення" ? (
+						{item.title === "Кошик" ? (
 							quantity === null ? null : quantity === 0 ? null : (
 								<Label color="teal" size="mini">
 									{quantity}

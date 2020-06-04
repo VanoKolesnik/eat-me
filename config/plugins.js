@@ -23,6 +23,10 @@ const HtmlWebpackckPluginData = [
 	{
 		file: "orders",
 	},
+	{
+		file: "order-print",
+		entry: "orderPrint",
+	},
 ];
 
 module.exports = [
@@ -32,7 +36,7 @@ module.exports = [
 				template: `./source/public/${data.file}.html`,
 				favicon: favicon,
 				filename: `./${data.file}.html`,
-				chunks: ["common", "background", data.file],
+				chunks: ["common", "background", data.entry ? data.entry : data.file],
 			})
 	),
 ];

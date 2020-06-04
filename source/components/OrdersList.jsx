@@ -1,8 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 
-import { Card, List } from "semantic-ui-react";
+import { setOrderToStorage } from "../actions/fetchedActions/ordersActions";
+
+import { Card, List, Button } from "semantic-ui-react";
 
 const OrdersList = ({
+	dispatch,
 	orders,
 	paidValue,
 	deliveredValue,
@@ -99,6 +103,18 @@ const OrdersList = ({
 												{order.delivered ? "Доставлено" : "Не доставлено"}
 											</span>
 										</List.Item>
+										<List.Item>
+											<Button
+												onClick={() => {
+													dispatch(setOrderToStorage(order));
+													window.location = "/order-print";
+												}}
+												fluid
+												color="teal"
+											>
+												Чек
+											</Button>
+										</List.Item>
 									</List>
 								</Card.Content>
 							</Card>
@@ -109,4 +125,6 @@ const OrdersList = ({
 	);
 };
 
-export default OrdersList;
+// const mapStateToProps = {};
+
+export default connect()(OrdersList);

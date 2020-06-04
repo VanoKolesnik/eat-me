@@ -7,6 +7,7 @@ export const SELECTED_ESTABLISHMENT_ID = "selectedEstablishmentId";
 export const ORDER_DISHES = "selectedDishes";
 export const ORDER_QUANTITY = "orderQuantity";
 export const ORDER_TOTAL_PRICE = "orderTotalPrice";
+export const ORDER_PRINT = "orderPrint";
 
 export const ACCOUNT_ID = "accountId";
 
