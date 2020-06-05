@@ -19,6 +19,7 @@
 		"jquery": "^3.5.0",
 		"js-cookie": "^2.2.1",
 		"md5": "^2.2.1",
+		"nodemailer": "^6.4.8",
 		"normalize.css": "^8.0.1",
 		"particles.js": "^2.0.0",
 		"react": "^16.13.1",

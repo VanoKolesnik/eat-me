@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
 
 import { Card, List, Button } from "semantic-ui-react";
+import { SemanticToastContainer, toast } from "react-semantic-toasts";
 
 import Header from "../components/Header";
 
+import { fetchAccounts } from "../actions/fetchedActions/accountsActions";
+import { getAccountId } from "../actions/accountIdActions";
+
 import { ORDER_PRINT } from "../utilities/constants";
 
-const OrderPrint = () => {
+const OrderPrint = ({ dispatch, account, accountId }) => {
 	const [order, setOrder] = useState({
 		customerPhone: "",
 		delivered: false,
@@ -27,6 +33,14 @@ const OrderPrint = () => {
 	useEffect(() => {
 		setOrder(JSON.parse(localStorage.getItem(ORDER_PRINT)));
 	}, []);
+
+	useEffect(() => {
+		dispatch(getAccountId());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(fetchAccounts(accountId));
+	}, [accountId]);
 
 	return (
 		<>
@@ -84,23 +98,70 @@ const OrderPrint = () => {
 								<span>{order.delivered ? "Доставлено" : "Не доставлено"}</span>
 							</List.Item>
 
-							<List.Item>
+							<List.Item
+								style={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "space-between",
+								}}
+							>
 								<Button
 									onClick={() => {
 										window.print();
 									}}
 									fluid
 									color="teal"
+									style={{ marginBottom: 20 }}
 								>
 									Друк
+								</Button>
+								<Button
+									onClick={() => {
+										axios
+											.post("http://localhost:2020/send-order-email", {
+												id: account.id,
+												mail: account.email,
+												orderData: order,
+											})
+											.then((res) => {
+												toast({
+													type: "success",
+													icon: "checkmark",
+													title: "Відправлено",
+													description: "Перевірте пошту",
+													animation: "fly left",
+													time: 5000,
+												});
+											})
+											.catch((err) => {
+												toast({
+													type: "warning",
+													icon: "warning",
+													title: "Помилка",
+													description: "Помилка на сервері. Повторіть пізніше",
+													animation: "fly left",
+													time: 5000,
+												});
+											});
+									}}
+									fluid
+									color="teal"
+								>
+									Відправити на пошту
 								</Button>
 							</List.Item>
 						</List>
 					</Card.Content>
 				</Card>
 			</Card.Group>
+			<div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
+				<SemanticToastContainer position="bottom-right" />
+			</div>
 		</>
 	);
 };
 
-export default OrderPrint;
+export default connect((state) => ({
+	account: state.accounts.accounts,
+	accountId: state.accountId.id,
+}))(OrderPrint);
