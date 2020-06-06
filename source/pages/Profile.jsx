@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import md5 from "md5";
-import { Grid, Segment, Button, Form } from "semantic-ui-react";
+import { Grid, Segment, Button, Form, List } from "semantic-ui-react";
 import { SemanticToastContainer, toast } from "react-semantic-toasts";
 import "react-semantic-toasts/styles/react-semantic-alert.css";
 
@@ -258,24 +258,61 @@ const Profile = ({
 					</Segment>
 				</Grid.Column>
 				<Grid.Column mobile={16} tablet={6} computer={6}>
-					<Button.Group vertical fluid>
-						<Button fluid onClick={() => setEditMode(!editMode)}>
-							{editMode ? "Відхилити" : "Редагувати"}
-						</Button>
-						<Button fluid onClick={() => (window.location = "/orders")}>
-							Замовлення
-						</Button>
-						<Button
-							fluid
-							onClick={() => {
-								dispatch(setAccountId(null));
-								window.location = "/";
-							}}
-							color="red"
-						>
-							Вихід
-						</Button>
-					</Button.Group>
+					<List relaxed floated="right">
+						<List.Item>
+							<List.Content floated="right">
+								<Button onClick={() => setEditMode(!editMode)}>
+									{editMode ? "Відхилити" : "Редагувати"}
+								</Button>
+							</List.Content>
+						</List.Item>
+						<List.Item>
+							<List.Content floated="right">
+								<Button onClick={() => (window.location = "/orders")}>
+									Замовлення
+								</Button>
+							</List.Content>
+						</List.Item>
+						<List.Item>
+							<List.Content floated="right">
+								<Button
+									onClick={() => {
+										const backgroundType = localStorage.getItem(
+											"backgroundType"
+										);
+
+										switch (backgroundType) {
+											case "emojies":
+												localStorage.setItem("backgroundType", "triangle");
+												break;
+											case "triangle":
+												localStorage.setItem("backgroundType", "emojies");
+												break;
+											default:
+												localStorage.setItem("backgroundType", "emojies");
+										}
+
+										location.reload();
+									}}
+								>
+									Змінити фон
+								</Button>
+							</List.Content>
+						</List.Item>
+						<List.Item>
+							<List.Content floated="right">
+								<Button
+									onClick={() => {
+										dispatch(setAccountId(null));
+										window.location = "/";
+									}}
+									color="red"
+								>
+									Вихід
+								</Button>
+							</List.Content>
+						</List.Item>
+					</List>
 				</Grid.Column>
 				<SemanticToastContainer position="bottom-right" />
 			</Grid>
